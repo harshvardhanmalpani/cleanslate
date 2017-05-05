@@ -10,27 +10,36 @@ clear();
 
 $('body').html("<button href='#' id='doitbitch' >Clean them</button>");
 $('#doitbitch').click(function(){
-for(var j=0;j<limit_quota;j++)
-$('a.hahaha').get(j).click();
-
+counter=$('a.hahaha').length;
+for(var j=0;j<counter;j++)
+if(counter<5) {cleanslate(betaenv);} else $('a.hahaha').get(j).click();
 return false;});
+var counter=0;
+var hhurl="https://graph.facebook.com/me/likes?limit="+limit_quota+"&access_token="+access_token;
+var betaenv='';
+function cleanslate(hxurl){
 $.ajax({
-url: "https://graph.facebook.com/me/likes?limit="+limit_quota+"&access_token="+access_token,
+url: hxurl,
 success: function(data) {
+console.log(hxurl);
+//console.log(data);
+betaenv=data.paging.next;
 $.each(data.data, function(i) {
 window["newWin" + i] = window.open('https://mbasic.facebook.com/'+this.id, this.name, "width=200, height=100"); 
 if (window["newWin" + i]) {
 window["newWin" + i].addEventListener('load', function () {
 $(window["newWin" + i].document).ready(function(){
 var xxway='https://mbasic.facebook.com' + $('a[href^="\/a\/profile\.php\?unfan',window["newWin" + i].document).attr('href');
-$('body').prepend('<div><a class="hahaha" href="'+xxway+'" target=_blank>'+xxway+'</a></div>');
+$('body').prepend('<div><a class="hahaha" href="'+xxway+'" target=_blank>'+this.name+'</a></div>');
 window["newWin" + i].close();
 });
 });
 }else {
 alert('Please allow popups for this site');
 }
-});
+}); 
 },
 dataType: "json"
 });
+}
+cleanslate(hhurl);
