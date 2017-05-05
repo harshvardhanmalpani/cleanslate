@@ -25,12 +25,13 @@ console.log(hxurl);
 //console.log(data);
 betaenv=data.paging.next;
 $.each(data.data, function(i) {
+var trname=this.name;
 window["newWin" + i] = window.open('https://mbasic.facebook.com/'+this.id, this.name, "width=200, height=100"); 
 if (window["newWin" + i]) {
 window["newWin" + i].addEventListener('load', function () {
 $(window["newWin" + i].document).ready(function(){
 var xxway='https://mbasic.facebook.com' + $('a[href^="\/a\/profile\.php\?unfan',window["newWin" + i].document).attr('href');
-$('body').prepend('<div><a class="hahaha" href="'+xxway+'" target=_blank>'+this.name+'</a></div>');
+$('body').prepend('<div><a class="hahaha" href="'+xxway+'" target=_blank>'+trname+'</a></div>');
 window["newWin" + i].close();
 });
 });
